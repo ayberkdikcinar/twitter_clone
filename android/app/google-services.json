@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "924304821120",
+    "project_id": "endower-6ec95",
+    "storage_bucket": "endower-6ec95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924304821120:android:f2f15c69050b7eb69fcf65",
+        "android_client_info": {
+          "package_name": "com.example.endower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924304821120-5he54bo0a71rm5akgfit58ucfdjvnhh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkrCvLK2XJnh9dnas5Gwd0cZqtAILDSio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924304821120-5he54bo0a71rm5akgfit58ucfdjvnhh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
