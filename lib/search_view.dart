@@ -39,6 +39,7 @@ class _SearchViewState extends State<SearchView> {
                       builder: (context) => ProfileView(
                             userId: snapshot.data[index].id,
                           )));
+
                   print(snapshot.data[index].id);
                 },
                 child: ListTile(

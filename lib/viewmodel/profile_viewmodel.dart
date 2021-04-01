@@ -16,14 +16,38 @@ class ProfileViewModel with ChangeNotifier {
   }
 
   Stream<Analytics> getProfileInformation(String userId) {
-    return _userServices.getUserProfileInformation(userId);
+    return _analyticServices.getAnalyticsByUserId(userId);
   }
 
   Stream<List<Post>> getPostsByUserId(String userId) {
     return _postServices.getPostsByUserId(userId);
   }
 
-  /*Future<bool> getUserFollowing1(String userId, String otherId) async {
-    return _userServices.getUserFollowing1(userId, otherId);
-  }*/
+  Stream<bool> isFollowing(guestId, ownerId) {
+    return _userServices.isFollowing(guestId, ownerId);
+  }
+
+  Future<void> increasePostCount(String userId) {
+    return _analyticServices.increasePostCount(userId);
+  }
+
+  Future<void> increaseFollowerCount(String userId) {
+    return _analyticServices.increaseFollowerCount(userId);
+  }
+
+  Future<void> increaseFollowingCount(String userId) {
+    return _analyticServices.increaseFollowingCount(userId);
+  }
+
+  Future<void> decreasePostCount(String userId) {
+    return _analyticServices.decreasePostCount(userId);
+  }
+
+  Future<void> decreaseFollowerCount(String userId) {
+    return _analyticServices.decreaseFollowerCount(userId);
+  }
+
+  Future<void> decreaseFollowingCount(String userId) {
+    return _analyticServices.decreaseFollowingCount(userId);
+  }
 }

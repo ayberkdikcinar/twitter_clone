@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'components/custom_post_listile_widget.dart';
+import 'components/custom_text_button_widget.dart';
 import 'model/analytics_model.dart';
 import 'model/post_model.dart';
 import 'model/user_model.dart';
@@ -25,51 +25,54 @@ class _ProfileViewState extends State<ProfileView> {
     if (widget.userId != null) {
       _selectedUserId = widget.userId;
     }
-    // bool _followingOrNot = await getUserFollowing(_selectedUserId, widget.userId);
-    return Scaffold(
-      appBar: AppBar(),
-      body: StreamBuilder<UserModel>(
-        stream: _profileViewModel.getUser(_selectedUserId),
-        builder: (context, snapshot) {
-          var _user = snapshot.data;
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              Container(
-                height: 150,
-                color: Colors.black,
-                child: profileTop(_user),
-              ),
-              StreamBuilder<List<Post>>(
-                  stream: _profileViewModel.getPostsByUserId(_selectedUserId),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Container();
-                    }
-                    return ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => Divider(),
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        var _currentPost = snapshot.data[index];
-                        return postListileWithPadding(_currentPost, _profileViewModel, _user);
-                      },
-                    );
-                  }),
-            ],
-          );
-        },
-      ),
+    return MultiProvider(
+      providers: [
+        StreamProvider<UserModel>.value(
+          value: _profileViewModel.getUser(_selectedUserId),
+          initialData: UserModel(username: '', photo: '/', email: '', id: ''),
+        ),
+        StreamProvider<List<Post>>.value(
+          value: _profileViewModel.getPostsByUserId(_selectedUserId),
+          initialData: [],
+        ),
+        StreamProvider<Analytics>.value(
+          value: _profileViewModel.getProfileInformation(_selectedUserId),
+          initialData: Analytics(),
+        ),
+        StreamProvider<bool>.value(
+          value: _profileViewModel.isFollowing('0', _selectedUserId),
+          initialData: false,
+        ),
+      ],
+      builder: (context, child) {
+        return Scaffold(
+            appBar: AppBar(),
+            body: ListView(
+              shrinkWrap: true,
+              children: [
+                Container(
+                  height: 150,
+                  color: Colors.black,
+                  child: profileTop(Provider.of<UserModel>(context), Provider.of<Analytics>(context), Provider.of<bool>(context)),
+                ),
+                ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: Provider.of<List<Post>>(context).length,
+                  itemBuilder: (context, index) {
+                    var _currentPost = Provider.of<List<Post>>(context)[index];
+                    return postListileWithPadding(_currentPost, Provider.of<UserModel>(context));
+                  },
+                )
+              ],
+            ));
+      },
     );
+    // bool _followingOrNot = await getUserFollowing(_selectedUserId, widget.userId);
   }
 
-  Padding postListileWithPadding(Post _currentPost, ProfileViewModel _profileViewModel, UserModel user) {
+  Padding postListileWithPadding(Post _currentPost, UserModel user) {
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: CustomPostListile(
@@ -81,7 +84,7 @@ class _ProfileViewState extends State<ProfileView> {
         ));
   }
 
-  Widget profileTop(UserModel user) {
+  Widget profileTop(UserModel user, Analytics analytics, bool following) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -100,51 +103,54 @@ class _ProfileViewState extends State<ProfileView> {
             ],
           ),
         ),
-        StreamBuilder<Analytics>(
-          stream: Provider.of<ProfileViewModel>(context).getProfileInformation(_selectedUserId),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Container();
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    profileTopcolumn(snapshot.data.postCount.toString(), 'Posts'),
-                    profileTopcolumn(snapshot.data.followerCount.toString(), 'Followers'),
-                    profileTopcolumn(snapshot.data.followingCount.toString(), 'Following'),
-                  ],
-                ),
-                _selectedUserId == '0'
-                    ? TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Edit Profile',
-                          style: TextStyle(color: Colors.white),
-                        ))
-                    : TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Follow',
-                          style: TextStyle(color: Colors.white),
-                        )),
+                profileTopcolumn(analytics.postCount.toString() ?? '', 'Posts'),
+                profileTopcolumn(analytics.followerCount.toString() ?? '', 'Followers'),
+                profileTopcolumn(analytics.followingCount.toString() ?? '', 'Following'),
               ],
-            );
-          },
+            ),
+            if (_selectedUserId == '0')
+              CustomTextButton(
+                text: 'Edit Profile',
+                onPressed: () {},
+                backgroundColor: Theme.of(context).splashColor,
+              )
+            else if (following)
+              CustomTextButton(
+                text: 'Unfollow',
+                backgroundColor: Theme.of(context).errorColor,
+                onPressed: () async {
+                  await Provider.of<ProfileViewModel>(context, listen: false).decreaseFollowerCount(_selectedUserId);
+                  await Provider.of<ProfileViewModel>(context, listen: false).decreaseFollowingCount('0');
+                },
+              )
+            else
+              CustomTextButton(
+                text: 'Follow',
+                backgroundColor: Theme.of(context).primaryColor,
+                onPressed: () async {
+                  await Provider.of<ProfileViewModel>(context, listen: false).increaseFollowerCount(_selectedUserId);
+                  await Provider.of<ProfileViewModel>(context, listen: false).increaseFollowingCount('0');
+                },
+              )
+          ],
         )
       ],
     );
   }
 
-  Widget profileTopcolumn(String text1, String text2) {
+  Widget profileTopcolumn(String amount, String text) {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(text1, style: TextStyle(color: Colors.white)),
-          Text(text2, style: TextStyle(color: Colors.white)),
+          Text(amount, style: TextStyle(color: Colors.white)),
+          Text(text, style: TextStyle(color: Colors.white)),
         ],
       ),
     );

@@ -22,12 +22,9 @@ class UserServices {
     return _querySnapshots.docs.map((e) => e.id).toList();
   }
 
-  Future<bool> isFollowing(guestId, ownerId) async {
-    var _querySnapshot = await _userCollection.doc(guestId).collection('following').doc(ownerId).get();
-    if (_querySnapshot.exists) {
-      return true;
-    }
-    return false;
+  Stream<bool> isFollowing(guestId, ownerId) {
+    var _querySnapshot = _userCollection.doc(guestId).collection('following').doc(ownerId).snapshots();
+    return _querySnapshot.map((event) => event.exists);
   }
 
   Stream<Analytics> getUserProfileInformation(String userId) {
