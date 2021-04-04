@@ -170,7 +170,7 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
       return CustomTextButton(
         text: 'Edit Profile',
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
             builder: (context) => ProfileSettingView(),
           ));
         },

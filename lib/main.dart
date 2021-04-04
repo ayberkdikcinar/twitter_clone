@@ -1,3 +1,4 @@
+import 'package:endower/viewmodel/profile_setting_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => ProfileViewModel()),
       ChangeNotifierProvider(create: (context) => SearchViewModel()),
       ChangeNotifierProvider(create: (context) => AuthViewModel()),
+      ChangeNotifierProvider(create: (context) => ProfileSettingsViewModel()),
     ],
     child: MyApp(),
   ));
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: LandingView(),
       theme: DarkTheme.instance.data, //LandingView(),

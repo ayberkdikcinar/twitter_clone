@@ -41,4 +41,13 @@ class UserServices {
     var _matchedUsers = _querySnapshot.map((event) => event.docs.map((e) => UserModel.fromJson(e.data())).toList());
     return _matchedUsers;
   }
+
+  Future<bool> updateUserInfo(String userId, String name, String username, String photoUrl) async {
+    var query = await _userCollection.where('username', isEqualTo: username.toString()).get();
+    if (query.docs.isNotEmpty && query.docs.first.id != userId) {
+      return false;
+    }
+    await _userCollection.doc(userId).update({'name': name, 'username': username, 'photo': photoUrl});
+    return true;
+  }
 }

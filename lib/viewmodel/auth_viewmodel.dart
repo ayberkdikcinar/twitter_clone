@@ -26,6 +26,11 @@ class AuthViewModel extends AuthBase with ChangeNotifier {
     notifyListeners();
   }
 
+  void setUser() {
+    currentUser();
+    notifyListeners();
+  }
+
   ViewState get getState => _state;
 
   @override

@@ -22,4 +22,5 @@ class ApplicationStrings {
   final String accountDetail = 'Account Detail';
   final String profile = 'Profile';
   final String logOut = 'Logout';
+  final String save = 'Save';
 }

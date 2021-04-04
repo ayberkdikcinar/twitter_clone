@@ -48,18 +48,18 @@ class HomeViewModel with ChangeNotifier {
 
     for (var post in _posts) {
       bool flag = false;
-      var _user = await getUserById(post.owner);
+      var _user1 = await getUserById(post.owner);
       if (_userList.isEmpty) {
-        _userList.add(_user);
+        _userList.add(_user1);
       }
       for (var user in _userList) {
-        if (_user.id == user.id) {
+        if (_user1.id == user.id) {
           flag = true;
           break;
         }
       }
       if (flag != true) {
-        _userList.add(_user);
+        _userList.add(_user1);
       }
     }
     print('çalıştı');

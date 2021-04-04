@@ -42,7 +42,7 @@ class PostServices {
     try {
       var _user = await _firebaseAuthServices.currentUser();
       List<String> _usersFollowing = await UserServices().listFollowingUsers(_user.id);
-      var _querysnapshot = await _firestore.collection('posts').where('owner', whereIn: _usersFollowing).get();
+      var _querysnapshot = await _firestore.collection('posts').where('owner', whereIn: _usersFollowing).orderBy('time', descending: true).get();
       return _querysnapshot.docs.map((e) => Post.fromJson(e.data())).toList();
     } catch (e) {
       print('an error while getting all posts in the system ' + e.toString());

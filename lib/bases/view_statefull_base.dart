@@ -7,4 +7,14 @@ abstract class StatefullBase<T extends StatefulWidget> extends State<T> {
 
   double dynamicHeight(double height) => MediaQuery.of(context).size.height * height;
   double dynamicWidth(double width) => MediaQuery.of(context).size.width * width;
+
+  SnackBar buildSnackBar({String text, Color bgColor, Color textColor, int second}) {
+    return SnackBar(
+        content: Text(
+          text,
+          style: TextStyle(color: textColor ?? Colors.white),
+        ),
+        backgroundColor: bgColor ?? Colors.black,
+        duration: Duration(seconds: second ?? 1));
+  }
 }
