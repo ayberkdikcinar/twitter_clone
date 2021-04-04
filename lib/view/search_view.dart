@@ -1,10 +1,10 @@
-import 'package:endower/components/custom_textField_widget.dart';
-import 'package:endower/profile_view.dart';
-import 'package:endower/viewmodel/search_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'model/user_model.dart';
+import '../core/components/custom_textField_widget.dart';
+import '../model/user_model.dart';
+import '../viewmodel/search_viewmodel.dart';
+import 'profile_view.dart';
 
 class SearchView extends StatefulWidget {
   SearchView({Key key}) : super(key: key);

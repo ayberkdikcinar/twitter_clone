@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:endower/dd/tab_item.dart';
-import 'package:endower/viewmodel/manager_page_navi_viewmodel.dart';
+import '../viewmodel/manager_page_navi_viewmodel.dart';
+import 'tab_item.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({Key key, this.createPage}) : super(key: key);

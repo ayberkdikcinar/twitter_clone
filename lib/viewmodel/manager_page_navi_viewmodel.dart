@@ -1,6 +1,7 @@
-import 'package:endower/dd/tab_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../dd/tab_item.dart';
 
 class ManagerPageViewModel with ChangeNotifier {
   TabItem _currentTab;

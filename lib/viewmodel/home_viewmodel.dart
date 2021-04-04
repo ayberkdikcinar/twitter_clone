@@ -15,6 +15,7 @@ class HomeViewModel with ChangeNotifier {
   UserServices _userServices = UserServices();
   AnalyticServices _analyticServices = AnalyticServices();
 
+  UserModel _user;
   HomeViewModel() {
     _loadingPosts = getAllPosts();
   }
@@ -69,4 +70,6 @@ class HomeViewModel with ChangeNotifier {
     print('çalıştı get user');
     return await _userServices.getUserById(userId);
   }
+
+  UserModel get currentUser => _user;
 }

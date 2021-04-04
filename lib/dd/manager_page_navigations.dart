@@ -1,10 +1,10 @@
-import 'package:endower/dd/tab_item.dart';
-import 'package:endower/home_view.dart';
-import 'package:endower/profile_view.dart';
-import 'package:endower/search_view.dart';
 import 'package:flutter/material.dart';
 
+import '../view/home_view.dart';
+import '../view/profile_view.dart';
+import '../view/search_view.dart';
 import 'bottom_navigation_bar.dart';
+import 'tab_item.dart';
 
 class ManagerPageNavigation extends StatefulWidget {
   ManagerPageNavigation({Key key}) : super(key: key);

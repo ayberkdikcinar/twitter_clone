@@ -24,7 +24,7 @@ class CustomPostListile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: Colors.white24,
+      tileColor: Theme.of(context).backgroundColor,
       leading: leading,
       title: Padding(
         padding: const EdgeInsets.only(top: 15, right: 10),

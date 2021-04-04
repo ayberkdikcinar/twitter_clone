@@ -1,6 +1,7 @@
-import 'package:endower/model/user_model.dart';
-import 'package:endower/services/user_services.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../model/user_model.dart';
+import '../services/user_services.dart';
 
 class SearchViewModel with ChangeNotifier {
   String _searchText = '';

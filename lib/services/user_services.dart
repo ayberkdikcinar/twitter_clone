@@ -7,6 +7,10 @@ class UserServices {
   final _fbInstance = FirebaseFirestore.instance;
   final _userCollection = FirebaseFirestore.instance.collection('users');
 
+  Future<void> saveUser(UserModel user) async {
+    await _userCollection.doc(user.id).set(user.toJson());
+  }
+
   Future<UserModel> getUserById(String userId) async {
     var _doc = await _userCollection.doc(userId).get();
     return UserModel.fromJson(_doc.data());

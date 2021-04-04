@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import '../model/analytics_model.dart';
 import '../model/post_model.dart';
 import '../model/user_model.dart';
@@ -31,23 +32,15 @@ class ProfileViewModel with ChangeNotifier {
     return _analyticServices.increasePostCount(userId);
   }
 
-  Future<void> increaseFollowerCount(String userId) {
-    return _analyticServices.increaseFollowerCount(userId);
+  Future<void> follow(String userId, String guestId) async {
+    await _analyticServices.increaseFollowerCount(userId, guestId);
   }
 
-  Future<void> increaseFollowingCount(String userId) {
-    return _analyticServices.increaseFollowingCount(userId);
+  Future<void> decreasePostCount(String userId) async {
+    await _analyticServices.decreasePostCount(userId);
   }
 
-  Future<void> decreasePostCount(String userId) {
-    return _analyticServices.decreasePostCount(userId);
-  }
-
-  Future<void> decreaseFollowerCount(String userId) {
-    return _analyticServices.decreaseFollowerCount(userId);
-  }
-
-  Future<void> decreaseFollowingCount(String userId) {
-    return _analyticServices.decreaseFollowingCount(userId);
+  Future<void> unfollow(String userId, String guestId) async {
+    await _analyticServices.decreaseFollowerCount(userId, guestId);
   }
 }

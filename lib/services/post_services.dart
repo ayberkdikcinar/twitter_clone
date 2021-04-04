@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/post_model.dart';
+import 'auth_services.dart';
 import 'user_services.dart';
 
 class PostServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final FirebaseAuthServices _firebaseAuthServices = FirebaseAuthServices();
   Future<bool> addPost(Post post) async {
     try {
       await _firestore.collection('posts').doc().set(post.toJson());
@@ -39,7 +40,8 @@ class PostServices {
 
   Future<List<Post>> getFollowingPosts() async {
     try {
-      List<String> _usersFollowing = await UserServices().listFollowingUsers('0');
+      var _user = await _firebaseAuthServices.currentUser();
+      List<String> _usersFollowing = await UserServices().listFollowingUsers(_user.id);
       var _querysnapshot = await _firestore.collection('posts').where('owner', whereIn: _usersFollowing).get();
       return _querysnapshot.docs.map((e) => Post.fromJson(e.data())).toList();
     } catch (e) {
