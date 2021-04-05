@@ -1,12 +1,12 @@
-class Analytics {
+class Stat {
   int followerCount;
   int followingCount;
   String owner;
   int postCount;
 
-  Analytics({this.followerCount, this.followingCount, this.owner, this.postCount});
+  Stat({this.followerCount, this.followingCount, this.owner, this.postCount});
 
-  Analytics.fromJson(Map<String, dynamic> json) {
+  Stat.fromJson(Map<String, dynamic> json) {
     followerCount = json['follower_count'];
     followingCount = json['following_count'];
     owner = json['owner'];

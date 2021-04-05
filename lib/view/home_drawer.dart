@@ -39,9 +39,7 @@ class HomeDrawer extends StatelessWidget {
                         Icons.add_circle_outline,
                         color: Colors.white,
                       ),
-                      onPressed: () async {
-                        await Provider.of<AuthViewModel>(context, listen: false).signOut();
-                      },
+                      onPressed: () {},
                       iconSize: 40,
                     ),
                   ],
@@ -86,6 +84,22 @@ class HomeDrawer extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ProfileView(),
                     ));
+                  },
+                ),
+                SizedBox(height: 7),
+                GestureDetector(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(width: 3),
+                      Text('Logout')
+                    ],
+                  ),
+                  onTap: () async {
+                    await Provider.of<AuthViewModel>(context, listen: false).signOut();
                   },
                 )
               ],

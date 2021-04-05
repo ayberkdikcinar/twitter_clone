@@ -20,7 +20,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends StatefullBase<ProfileView> {
-  String _selectedUserId = '0';
+  String _selectedUserId;
 
   @override
   // ignore: must_call_super
@@ -38,6 +38,7 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
         StreamProvider<UserModel>.value(
           value: _profileViewModel.getUser(_selectedUserId),
           initialData: _authUser,
+          catchError: (context, error) => _authUser,
         ),
         StreamProvider<List<Post>>.value(
           value: _profileViewModel.getPostsByUserId(_selectedUserId),

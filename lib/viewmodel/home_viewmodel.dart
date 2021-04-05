@@ -2,21 +2,22 @@ import 'package:flutter/cupertino.dart';
 
 import '../model/post_model.dart';
 import '../model/user_model.dart';
-import '../services/analytics_services.dart';
+import '../services/stats_services.dart';
 import '../services/post_services.dart';
 import '../services/user_services.dart';
 
 class HomeViewModel with ChangeNotifier {
-  List<UserModel> _userList = [];
+  List<UserModel> _userList;
 
   ///for comment window
   Future<List<Post>> _loadingPosts;
   PostServices _postServices = PostServices();
   UserServices _userServices = UserServices();
-  AnalyticServices _analyticServices = AnalyticServices();
+  StatServices _analyticServices = StatServices();
 
   UserModel _user;
   HomeViewModel() {
+    _userList = [];
     _loadingPosts = getAllPosts();
   }
 

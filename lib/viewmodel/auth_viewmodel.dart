@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../bases/auth_base.dart';
 import '../model/user_model.dart';
-import '../services/analytics_services.dart';
+import '../services/stats_services.dart';
 import '../services/auth_services.dart';
 import '../services/user_services.dart';
 
@@ -11,7 +11,7 @@ enum ViewState { Idle, Busy }
 class AuthViewModel extends AuthBase with ChangeNotifier {
   FirebaseAuthServices _firebaseAuthServices = FirebaseAuthServices();
   UserServices _userServices = UserServices();
-  AnalyticServices _analyticServices = AnalyticServices();
+  StatServices _analyticServices = StatServices();
   UserModel _user;
   ViewState _state;
 
@@ -23,11 +23,6 @@ class AuthViewModel extends AuthBase with ChangeNotifier {
   UserModel get user => _user;
   void setState(ViewState value) {
     _state = value;
-    notifyListeners();
-  }
-
-  void setUser() {
-    currentUser();
     notifyListeners();
   }
 

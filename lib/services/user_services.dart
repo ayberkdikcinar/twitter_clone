@@ -47,7 +47,11 @@ class UserServices {
     if (query.docs.isNotEmpty && query.docs.first.id != userId) {
       return false;
     }
-    await _userCollection.doc(userId).update({'name': name, 'username': username, 'photo': photoUrl});
+    if (photoUrl != '') {
+      await _userCollection.doc(userId).update({'name': name, 'username': username, 'photo': photoUrl});
+    } else {
+      await _userCollection.doc(userId).update({'name': name, 'username': username});
+    }
     return true;
   }
 }

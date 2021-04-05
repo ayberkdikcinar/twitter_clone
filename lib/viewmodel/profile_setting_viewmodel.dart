@@ -12,6 +12,7 @@ class ProfileSettingsViewModel with ChangeNotifier {
   String _userId;
   String _photoUrl = '';
   File _image;
+  bool _loading = false;
 
   UserServices _userServices = UserServices();
   FirebaseStorageService _firebaseStorageService = FirebaseStorageService();
@@ -23,7 +24,7 @@ class ProfileSettingsViewModel with ChangeNotifier {
 
   //Image _photo;
   //
-
+  //
   Future<String> uploadImage() async {
     if (_image != null) {
       _photoUrl = await _firebaseStorageService.uploadImage(_userId, _image);
@@ -40,11 +41,17 @@ class ProfileSettingsViewModel with ChangeNotifier {
     }
   }
 
+  get loading => _loading;
   get userId => _userId;
   get name => _name;
   get username => _username;
   get bio => _bio;
   get image => _image;
+
+  void setLoading() {
+    _loading = !_loading;
+    notifyListeners();
+  }
 
   void setImage(File image) {
     _image = image;

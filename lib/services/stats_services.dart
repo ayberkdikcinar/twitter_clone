@@ -4,7 +4,7 @@ import '../model/analytics_model.dart';
 import 'auth_services.dart';
 import 'user_services.dart';
 
-class AnalyticServices {
+class StatServices {
   final _analyticCollection = FirebaseFirestore.instance.collection('analytics');
   final _userCollection = FirebaseFirestore.instance.collection('users');
   UserServices _userServices = UserServices();
