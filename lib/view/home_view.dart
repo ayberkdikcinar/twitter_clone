@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +48,7 @@ class _HomeViewState extends StatefullBase<HomeView> with AutomaticKeepAliveClie
         ),
         drawer: HomeDrawer(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _floatOnPressedDialog(),
+          onPressed: () => _floatOnPressedDialog(_homeviewmodel),
           child: Icon(Icons.add),
         ),
         body: RefreshIndicator(
@@ -95,7 +96,7 @@ class _HomeViewState extends StatefullBase<HomeView> with AutomaticKeepAliveClie
         backgroundImage: NetworkImage(_homeviewmodel.getUserFromList(_currentPost.owner).photo),
       ),
       userName: _homeviewmodel.getUserFromList(_currentPost.owner).username,
-      postTime: '21.01.2010', ////_currentPost.time
+      postTime: formatDate(_currentPost.time.toDate(), [yy, '-', M, '-', d]).toString(), ////_currentPost.time
     );
   }
 
@@ -104,17 +105,31 @@ class _HomeViewState extends StatefullBase<HomeView> with AutomaticKeepAliveClie
     context.read<HomeViewModel>().setLoadingPosts();
   }
 
-  _floatOnPressedDialog() {
+  _floatOnPressedDialog(HomeViewModel homeviewmodel) {
     showDialog(
         context: context,
         builder: (context) => new AlertDialog(
               title: new Text("Send Post"),
-              content: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextFormField(),
-                  CustomTextFormField(maxLines: 5),
-                ],
+              content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextFormField(
+                      onChanged: (value) {
+                        homeviewmodel.setPostTitle(value);
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    CustomTextFormField(
+                      maxLines: 2,
+                      onChanged: (value) {
+                        homeviewmodel.setPostContent(value);
+                      },
+                    ),
+                  ],
+                ),
               ),
               actions: <Widget>[
                 TextButton(
@@ -129,10 +144,9 @@ class _HomeViewState extends StatefullBase<HomeView> with AutomaticKeepAliveClie
                     print('tıklandı');
                     await context.read<HomeViewModel>().addPost(Post(
                         owner: Provider.of<AuthViewModel>(context, listen: false).user.id,
-                        content: 'fingvefangdostum',
-                        id: '4',
+                        content: homeviewmodel.postContent,
                         photo: 'https://picsum.photos/200/300',
-                        title: 'en son bu atıldı ama elle yazılı bunlar hep '));
+                        title: homeviewmodel.postTitle));
                     Navigator.of(context).pop();
                   },
                 )

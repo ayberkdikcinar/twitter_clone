@@ -23,6 +23,7 @@ class DarkTheme extends ITheme {
         backgroundColor: Colors.black,
         accentColor: Colors.blueAccent,
         buttonColor: Colors.black38,
+        canvasColor: Color.fromARGB(255, 208, 208, 208),
         cardColor: Colors.amber.shade800,
         scaffoldBackgroundColor: Colors.black38,
       );

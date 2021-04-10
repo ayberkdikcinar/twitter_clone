@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../model/analytics_model.dart';
+import '../model/stat_model.dart';
 import '../model/user_model.dart';
 
 class UserServices {
@@ -31,9 +31,9 @@ class UserServices {
     return _querySnapshot.map((event) => event.exists);
   }
 
-  Stream<Analytics> getUserProfileInformation(String userId) {
+  Stream<Stat> getUserProfileInformation(String userId) {
     var _querysnapshots = _fbInstance.collection('analytics').doc(userId).snapshots();
-    return _querysnapshots.map((event) => Analytics.fromJson(event.data()));
+    return _querysnapshots.map((event) => Stat.fromJson(event.data()));
   }
 
   Stream<List<UserModel>> searchWithUsername(String searchText) {
@@ -42,15 +42,15 @@ class UserServices {
     return _matchedUsers;
   }
 
-  Future<bool> updateUserInfo(String userId, String name, String username, String photoUrl) async {
+  Future<bool> updateUserInfo(String userId, String name, String username, String photoUrl, String bio) async {
     var query = await _userCollection.where('username', isEqualTo: username.toString()).get();
     if (query.docs.isNotEmpty && query.docs.first.id != userId) {
       return false;
     }
     if (photoUrl != '') {
-      await _userCollection.doc(userId).update({'name': name, 'username': username, 'photo': photoUrl});
+      await _userCollection.doc(userId).update({'name': name, 'username': username, 'photo': photoUrl, 'bio': bio});
     } else {
-      await _userCollection.doc(userId).update({'name': name, 'username': username});
+      await _userCollection.doc(userId).update({'name': name, 'username': username, 'bio': bio});
     }
     return true;
   }

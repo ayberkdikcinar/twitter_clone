@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../model/analytics_model.dart';
+import '../model/stat_model.dart';
 import 'auth_services.dart';
 import 'user_services.dart';
 
@@ -11,19 +11,19 @@ class StatServices {
 
   Future<void> createAnalytic(String userId) async {
     var _user = await FirebaseAuthServices().currentUser();
-    var _initAnalytics = Analytics(followerCount: 0, followingCount: 0, postCount: 0, owner: userId);
+    var _initAnalytics = Stat(followerCount: 0, followingCount: 0, postCount: 0, owner: userId);
     await _userCollection.doc(userId).collection('following').doc(userId).set(_user.toJson());
     await _analyticCollection.doc(userId).set(_initAnalytics.toJson());
   }
 
-  Stream<Analytics> getAnalyticsByUserId(String userId) {
+  Stream<Stat> getAnalyticsByUserId(String userId) {
     var _querysnapshots = _analyticCollection.doc(userId).snapshots();
-    return _querysnapshots.map((event) => Analytics.fromJson(event.data()));
+    return _querysnapshots.map((event) => Stat.fromJson(event.data()));
   }
 
-  Future<Analytics> futGetAnalyticsByUserId(String userId) async {
+  Future<Stat> futGetAnalyticsByUserId(String userId) async {
     var _docsnapshots = await _analyticCollection.doc(userId).get();
-    return Analytics.fromJson(_docsnapshots.data());
+    return Stat.fromJson(_docsnapshots.data());
   }
 
   Future<void> increasePostCount(String userId) async {

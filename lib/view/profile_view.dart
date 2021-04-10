@@ -5,7 +5,7 @@ import '../bases/view_statefull_base.dart';
 import '../core/components/custom_post_listile_widget.dart';
 import '../core/components/custom_text_button_widget.dart';
 import '../core/localization/strings.dart';
-import '../model/analytics_model.dart';
+import '../model/stat_model.dart';
 import '../model/post_model.dart';
 import '../model/user_model.dart';
 import '../viewmodel/auth_viewmodel.dart';
@@ -44,10 +44,10 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
           value: _profileViewModel.getPostsByUserId(_selectedUserId),
           initialData: [],
         ),
-        StreamProvider<Analytics>.value(
+        StreamProvider<Stat>.value(
             value: _profileViewModel.getProfileInformation(_selectedUserId),
-            initialData: Analytics(followerCount: 0, followingCount: 0, postCount: 0),
-            catchError: (context, error) => Analytics(followerCount: 0, followingCount: 0, postCount: 0)),
+            initialData: Stat(followerCount: 0, followingCount: 0, postCount: 0),
+            catchError: (context, error) => Stat(followerCount: 0, followingCount: 0, postCount: 0)),
         StreamProvider<bool>.value(
           value: _profileViewModel.isFollowing(_authUser.id, _selectedUserId),
           initialData: false,
@@ -81,7 +81,7 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 60, left: 10),
-                      child: profileTop(Provider.of<UserModel>(context), Provider.of<Analytics>(context), Provider.of<bool>(context)),
+                      child: profileTop(Provider.of<UserModel>(context), Provider.of<Stat>(context), Provider.of<bool>(context)),
                     ),
                   ],
                 ),
@@ -102,7 +102,7 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
     // bool _followingOrNot = await getUserFollowing(_selectedUserId, widget.userId);
   }
 
-  Widget profileTop(UserModel user, Analytics analytics, bool following) {
+  Widget profileTop(UserModel user, Stat analytics, bool following) {
     final _authUser = Provider.of<AuthViewModel>(context).user;
     return Column(
       children: [
@@ -138,7 +138,7 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
                   ),
                   SizedBox(height: 3),
                   Text(
-                    'Burası benim biografim ama benasdase boyle lhmmasd grkyd bo yzngi nyn my ol ',
+                    user.bio ?? '',
                   ),
                 ],
               ),

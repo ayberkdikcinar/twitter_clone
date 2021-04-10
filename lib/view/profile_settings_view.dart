@@ -78,12 +78,11 @@ class _ProfileSettingViewState extends StatefullBase<ProfileSettingView> {
                         height: dynamicHeight(0.05),
                         width: dynamicWidth(0.5),
                         child: CustomTextFormField(
-                            borderRadious: 0,
-                            labelText: 'Username',
-                            initialVal: _authUser.username,
-                            onChanged: (value) => {
-                                  _profileSettings.setUsername(value),
-                                }),
+                          borderRadious: 0,
+                          labelText: 'Username',
+                          initialVal: _authUser.username,
+                          onChanged: (value) => _profileSettings.setUsername(value),
+                        ),
                       ),
                       Container(
                         margin: EdgeInsets.all(10),
@@ -92,6 +91,9 @@ class _ProfileSettingViewState extends StatefullBase<ProfileSettingView> {
                           borderRadious: 0,
                           maxLines: 3,
                           labelText: 'Personal Informations',
+                          onChanged: (value) {
+                            _profileSettings.setBio(value);
+                          },
                         ),
                       ),
                     ],

@@ -14,7 +14,8 @@ class HomeViewModel with ChangeNotifier {
   PostServices _postServices = PostServices();
   UserServices _userServices = UserServices();
   StatServices _analyticServices = StatServices();
-
+  String _postTitle;
+  String _postContent;
   UserModel _user;
   HomeViewModel() {
     _userList = [];
@@ -32,7 +33,7 @@ class HomeViewModel with ChangeNotifier {
 
   Future<void> addPost(Post post) async {
     await _postServices.addPost(post);
-    _analyticServices.increasePostCount('1');
+    _analyticServices.increasePostCount(post.owner);
   }
 
   UserModel getUserFromList(String id) {
@@ -65,6 +66,16 @@ class HomeViewModel with ChangeNotifier {
     }
     print('çalıştı');
     return _posts;
+  }
+
+  String get postTitle => _postTitle;
+  void setPostTitle(String value) {
+    _postTitle = value;
+  }
+
+  String get postContent => _postContent;
+  void setPostContent(String value) {
+    _postContent = value;
   }
 
   Future<UserModel> getUserById(String userId) async {

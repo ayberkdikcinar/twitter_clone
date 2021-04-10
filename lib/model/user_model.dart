@@ -9,8 +9,9 @@ class UserModel {
   String id;
   String email;
   String name;
+  String bio;
 
-  UserModel({this.username, this.photo, this.profileurl, this.id, @required this.email, this.name});
+  UserModel({this.username, this.photo, this.profileurl, this.id, @required this.email, this.name, this.bio});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? '';
@@ -19,6 +20,7 @@ class UserModel {
     photo = json['photo'] ?? '';
     profileurl = json['profileurl'] ?? '';
     email = json['email'];
+    bio = json['bio'];
   }
 
   Map<String, dynamic> toJson() {
@@ -29,6 +31,7 @@ class UserModel {
     data['photo'] = this.photo ?? '';
     data['profileurl'] = this.profileurl ?? '';
     data['email'] = this.email;
+    data['bio'] = this.bio;
     return data;
   }
 

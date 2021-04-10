@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../model/analytics_model.dart';
+import '../model/stat_model.dart';
 import '../model/post_model.dart';
 import '../model/user_model.dart';
 import '../services/stats_services.dart';
@@ -16,7 +16,7 @@ class ProfileViewModel with ChangeNotifier {
     return _userServices.streamGetUserById(userId);
   }
 
-  Stream<Analytics> getProfileInformation(String userId) {
+  Stream<Stat> getProfileInformation(String userId) {
     return _analyticServices.getAnalyticsByUserId(userId);
   }
 

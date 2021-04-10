@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../core/localization/strings.dart';
-import '../model/analytics_model.dart';
+import '../model/stat_model.dart';
 import '../viewmodel/auth_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import 'profile_view.dart';
@@ -48,7 +48,7 @@ class HomeDrawer extends StatelessWidget {
                 Text('@${_authUser.username}', style: Theme.of(context).textTheme.caption.copyWith(color: Colors.grey)),
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 20),
-                  child: StreamBuilder<Analytics>(
+                  child: StreamBuilder<Stat>(
                       stream: Provider.of<ProfileViewModel>(context).getProfileInformation(_authUser.id),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {

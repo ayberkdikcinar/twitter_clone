@@ -19,7 +19,7 @@ class ProfileSettingsViewModel with ChangeNotifier {
 
   Future<bool> saveChanges() async {
     await uploadImage();
-    return await _userServices.updateUserInfo(_userId, _name, _username, _photoUrl);
+    return await _userServices.updateUserInfo(_userId, _name, _username, _photoUrl, bio);
   }
 
   //Image _photo;
