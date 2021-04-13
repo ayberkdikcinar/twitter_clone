@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:endower/services/storage_services.dart';
-import 'package:endower/services/user_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../services/storage_services.dart';
+import '../../services/user_services.dart';
 
 class ProfileSettingsViewModel with ChangeNotifier {
   String _name;

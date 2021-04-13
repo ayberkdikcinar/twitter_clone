@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../core/localization/strings.dart';
 import '../model/stat_model.dart';
 import '../viewmodel/auth_viewmodel.dart';
-import '../viewmodel/profile_viewmodel.dart';
-import 'profile_view.dart';
+import '../profile/viewmodel/profile_viewmodel.dart';
+import '../profile/view/profile_view.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({Key key}) : super(key: key);

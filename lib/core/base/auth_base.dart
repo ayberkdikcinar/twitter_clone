@@ -1,4 +1,4 @@
-import '../model/user_model.dart';
+import 'package:endower/model/user_model.dart';
 
 abstract class AuthBase {
   Future<UserModel> signIn();

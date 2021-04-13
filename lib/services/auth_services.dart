@@ -1,10 +1,10 @@
-import 'package:endower/services/notification_services.dart';
-import 'package:endower/services/user_services.dart';
+import 'package:endower/core/base/auth_base.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../bases/auth_base.dart';
 import '../model/user_model.dart';
+import 'notification_services.dart';
+import 'user_services.dart';
 
 class FirebaseAuthServices implements AuthBase {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

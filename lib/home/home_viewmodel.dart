@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 import '../model/post_model.dart';
 import '../model/user_model.dart';
-import '../services/stats_services.dart';
 import '../services/post_services.dart';
+import '../services/stats_services.dart';
 import '../services/user_services.dart';
 
 class HomeViewModel with ChangeNotifier {

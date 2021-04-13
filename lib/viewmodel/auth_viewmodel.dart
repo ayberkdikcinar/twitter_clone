@@ -1,9 +1,9 @@
+import 'package:endower/core/base/auth_base.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../bases/auth_base.dart';
 import '../model/user_model.dart';
-import '../services/stats_services.dart';
 import '../services/auth_services.dart';
+import '../services/stats_services.dart';
 import '../services/user_services.dart';
 
 enum ViewState { Idle, Busy }

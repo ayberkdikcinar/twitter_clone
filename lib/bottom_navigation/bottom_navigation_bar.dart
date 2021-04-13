@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../viewmodel/manager_page_navi_viewmodel.dart';
+import 'manager_page_navi_viewmodel.dart';
 import 'tab_item.dart';
 
 class BottomNavigation extends StatelessWidget {
@@ -15,7 +15,7 @@ class BottomNavigation extends StatelessWidget {
         items: [
           _tabItem(TabItem.Home),
           _tabItem(TabItem.Search),
-          _tabItem(TabItem.Profile),
+          _tabItem(TabItem.Notification),
         ],
         onTap: (value) => Provider.of<ManagerPageViewModel>(context, listen: false).setSelectedTab(TabItem.values[value]),
       ),

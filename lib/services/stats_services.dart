@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:endower/services/notification_services.dart';
+import 'notification_services.dart';
 
 import '../model/stat_model.dart';
 import 'auth_services.dart';

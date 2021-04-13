@@ -1,15 +1,15 @@
-import 'package:endower/services/notification_services.dart';
-import 'package:endower/viewmodel/profile_setting_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/theme/dark_theme.dart';
+import 'services/notification_services.dart';
 import 'view/landing_view.dart';
 import 'viewmodel/auth_viewmodel.dart';
-import 'viewmodel/home_viewmodel.dart';
-import 'viewmodel/manager_page_navi_viewmodel.dart';
-import 'viewmodel/profile_viewmodel.dart';
+import 'home/home_viewmodel.dart';
+import 'bottom_navigation/manager_page_navi_viewmodel.dart';
+import 'profile/viewmodel/profile_setting_viewmodel.dart';
+import 'profile/viewmodel/profile_viewmodel.dart';
 import 'viewmodel/search_viewmodel.dart';
 
 Future<void> main() async {

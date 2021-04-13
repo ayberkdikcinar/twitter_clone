@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/components/custom_text_button_widget.dart';
-import '../../core/localization/strings.dart';
-import '../../viewmodel/auth_viewmodel.dart';
+import '../core/components/custom_text_button_widget.dart';
+import '../core/localization/strings.dart';
+import '../viewmodel/auth_viewmodel.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key key}) : super(key: key);

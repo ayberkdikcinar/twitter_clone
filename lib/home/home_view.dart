@@ -1,16 +1,15 @@
 import 'package:date_format/date_format.dart';
-import 'package:endower/services/notification_services.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:endower/core/base/view_statefull_base.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../bases/view_statefull_base.dart';
 import '../core/components/custom_post_listile_widget.dart';
 import '../core/components/custom_textFormField_widget.dart';
 import '../core/localization/strings.dart';
 import '../model/post_model.dart';
+import '../services/notification_services.dart';
 import '../viewmodel/auth_viewmodel.dart';
-import '../viewmodel/home_viewmodel.dart';
+import 'home_viewmodel.dart';
 import 'home_drawer.dart';
 
 class HomeView extends StatefulWidget {

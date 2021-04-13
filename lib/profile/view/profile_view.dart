@@ -1,14 +1,14 @@
+import 'package:endower/core/base/view_statefull_base.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../bases/view_statefull_base.dart';
-import '../core/components/custom_post_listile_widget.dart';
-import '../core/components/custom_text_button_widget.dart';
-import '../core/localization/strings.dart';
-import '../model/stat_model.dart';
-import '../model/post_model.dart';
-import '../model/user_model.dart';
-import '../viewmodel/auth_viewmodel.dart';
+import '../../core/components/custom_post_listile_widget.dart';
+import '../../core/components/custom_text_button_widget.dart';
+import '../../core/localization/strings.dart';
+import '../../model/post_model.dart';
+import '../../model/stat_model.dart';
+import '../../model/user_model.dart';
+import '../../viewmodel/auth_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import 'profile_settings_view.dart';
 

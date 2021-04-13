@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum TabItem { Home, Search, Profile }
+enum TabItem { Home, Search, Notification }
 
 class TabItemData {
   final String label;
@@ -12,6 +12,6 @@ class TabItemData {
   static Map<TabItem, TabItemData> pages = {
     TabItem.Home: TabItemData('Home', Icons.home),
     TabItem.Search: TabItemData('Search', Icons.search),
-    TabItem.Profile: TabItemData('Profile', Icons.person)
+    TabItem.Notification: TabItemData('Notification', Icons.notifications)
   };
 }

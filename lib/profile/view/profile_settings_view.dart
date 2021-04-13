@@ -1,13 +1,14 @@
-import 'package:endower/core/localization/strings.dart';
-import 'package:endower/viewmodel/profile_setting_viewmodel.dart';
+import 'package:endower/core/base/view_statefull_base.dart';
+
+import '../../core/localization/strings.dart';
+import '../viewmodel/profile_setting_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../bases/view_statefull_base.dart';
-import '../core/components/custom_textFormField_widget.dart';
-import '../core/components/custom_text_button_widget.dart';
-import '../viewmodel/auth_viewmodel.dart';
+import '../../core/components/custom_textFormField_widget.dart';
+import '../../core/components/custom_text_button_widget.dart';
+import '../../viewmodel/auth_viewmodel.dart';
 
 class ProfileSettingView extends StatefulWidget {
   ProfileSettingView({Key key}) : super(key: key);
