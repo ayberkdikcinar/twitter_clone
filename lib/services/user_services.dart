@@ -13,7 +13,10 @@ class UserServices {
 
   Future<UserModel> getUserById(String userId) async {
     var _doc = await _userCollection.doc(userId).get();
-    return UserModel.fromJson(_doc.data());
+    if (_doc.exists) {
+      return UserModel.fromJson(_doc.data());
+    }
+    return null;
   }
 
   Stream<UserModel> streamGetUserById(String userId) {

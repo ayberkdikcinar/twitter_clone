@@ -1,3 +1,4 @@
+import 'package:endower/services/notification_services.dart';
 import 'package:endower/services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -65,6 +66,7 @@ class FirebaseAuthServices implements AuthBase {
         if (_googleAuth.idToken != null && _googleAuth.accessToken != null) {
           var _response =
               await _firebaseAuth.signInWithCredential(GoogleAuthProvider.credential(idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken));
+          await NotificationService.saveUserToken(_response.user.uid);
           return userFromFirebase(_response.user);
         }
         return null;

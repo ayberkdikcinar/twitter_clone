@@ -77,10 +77,13 @@ class AuthViewModel extends AuthBase with ChangeNotifier {
     try {
       setState(ViewState.Busy);
       var _recentuser = await _firebaseAuthServices.signInWithGoogle();
-      _analyticServices.createAnalytic(_recentuser.id);
-      _userServices.saveUser(_recentuser);
-      _user = _recentuser;
-      return _recentuser;
+      await _analyticServices.createAnalytic(_recentuser.id);
+      var _userfromfb = await _userServices.getUserById(_recentuser.id);
+      if (_userfromfb == null) {
+        _userServices.saveUser(_recentuser);
+      }
+      _user = _userfromfb;
+      return _user;
     } catch (e) {
       print('error' + e.toString());
       return null;

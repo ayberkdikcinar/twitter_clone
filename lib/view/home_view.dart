@@ -1,4 +1,6 @@
 import 'package:date_format/date_format.dart';
+import 'package:endower/services/notification_services.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +23,12 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends StatefullBase<HomeView> with AutomaticKeepAliveClientMixin<HomeView> {
   @override
   bool get wantKeepAlive => true;
+  @override
+  void initState() {
+    NotificationService().initializeNotification();
+    super.initState();
+  }
+
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {

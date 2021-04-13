@@ -19,7 +19,7 @@ class PostServices {
 
   Stream<List<Post>> getPostsByUserId(String userId) {
     try {
-      var _snapshot = _firestore.collection('posts').where('owner', isEqualTo: userId).snapshots();
+      var _snapshot = _firestore.collection('posts').where('owner', isEqualTo: userId).orderBy('time', descending: true).snapshots();
 
       return _snapshot.map((event) => event.docs.map((e) => Post.fromJson(e.data())).toList());
     } catch (e) {

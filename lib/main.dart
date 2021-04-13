@@ -1,3 +1,4 @@
+import 'package:endower/services/notification_services.dart';
 import 'package:endower/viewmodel/profile_setting_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import 'viewmodel/search_viewmodel.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await init();
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ManagerPageViewModel()),
@@ -34,14 +37,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: LandingView(),
-      theme: DarkTheme.instance.data, //LandingView(),
-      /*initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        '/': (context) => LandingView(),
-        '/Home': (context) => HomeView(),
-        'Search': (context) => SearchView(),
-        '/Profile': (context) => ProfileView(),
-      },*/
+      theme: DarkTheme.instance.data,
     );
   }
 }

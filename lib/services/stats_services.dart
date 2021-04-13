@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:endower/services/notification_services.dart';
 
 import '../model/stat_model.dart';
 import 'auth_services.dart';
@@ -8,6 +9,7 @@ class StatServices {
   final _analyticCollection = FirebaseFirestore.instance.collection('analytics');
   final _userCollection = FirebaseFirestore.instance.collection('users');
   UserServices _userServices = UserServices();
+  final NotificationService _notificationService = NotificationService();
 
   Future<void> createAnalytic(String userId) async {
     var _user = await FirebaseAuthServices().currentUser();
@@ -37,6 +39,8 @@ class StatServices {
   Future<void> increaseFollowerCount(String userId, String guestId) async {
     await _analyticCollection.doc(userId).update({"follower_count": FieldValue.increment(1)});
     var _user = await _userServices.getUserById(userId);
+    var _guestUser = await _userServices.getUserById(guestId);
+    await _notificationService.sendNotification(_guestUser, userId);
     await _analyticCollection.doc(guestId).update({"following_count": FieldValue.increment(1)});
     await _userCollection.doc(guestId).collection('following').doc(userId).set(_user.toJson());
   }
