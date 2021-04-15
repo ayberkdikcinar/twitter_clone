@@ -190,7 +190,7 @@ class _ProfileViewState extends StatefullBase<ProfileView> {
         text: ApplicationStrings.instance.follow,
         backgroundColor: Theme.of(context).accentColor,
         onPressed: () async {
-          await Provider.of<ProfileViewModel>(context, listen: false).follow(_selectedUserId, authUser.id);
+          await Provider.of<ProfileViewModel>(context, listen: false).follow(_selectedUserId, authUser);
         },
       );
   }

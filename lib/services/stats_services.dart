@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:endower/model/user_model.dart';
 import 'notification_services.dart';
 
 import '../model/stat_model.dart';
@@ -36,18 +37,19 @@ class StatServices {
     await _analyticCollection.doc(userId).update({"post_count": FieldValue.increment(-1)});
   }
 
-  Future<void> increaseFollowerCount(String userId, String guestId) async {
+  Future<void> increaseFollowerCount(String userId, UserModel authUser) async {
     await _analyticCollection.doc(userId).update({"follower_count": FieldValue.increment(1)});
     var _user = await _userServices.getUserById(userId);
-    var _guestUser = await _userServices.getUserById(guestId);
-    await _notificationService.sendNotification(_guestUser, userId);
-    await _analyticCollection.doc(guestId).update({"following_count": FieldValue.increment(1)});
-    await _userCollection.doc(guestId).collection('following').doc(userId).set(_user.toJson());
+    _notificationService.sendNotification(authUser, userId);
+    await _analyticCollection.doc(authUser.id).update({"following_count": FieldValue.increment(1)});
+    await _userCollection.doc(authUser.id).collection('following').doc(userId).set(_user.toJson());
+    await _notificationService.saveNotificationToDB(authUser, userId, 'follow');
   }
 
   Future<void> decreaseFollowerCount(String userId, String guestId) async {
     await _analyticCollection.doc(userId).update({"follower_count": FieldValue.increment(-1)});
     await _analyticCollection.doc(guestId).update({"following_count": FieldValue.increment(-1)});
     await _userCollection.doc(guestId).collection('following').doc(userId).delete();
+    await _notificationService.deleteNotificationFromDB(guestId, userId, 'follow');
   }
 }

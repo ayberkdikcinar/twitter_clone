@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../model/user_model.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -31,6 +32,7 @@ class NotificationService {
   }
 
   NotificationService._init();
+  FirebaseFirestore _firebase = FirebaseFirestore.instance;
 
   initializeNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
@@ -88,8 +90,41 @@ class NotificationService {
       }),
     );
     if (_response.statusCode == HttpStatus.ok) {
+      //await saveNotificationToDB(guestUser, ownerId, 'follow');
       return;
     }
+  }
+
+  Future<void> saveNotificationToDB(UserModel guestUser, String ownerId, String typeOfNotification) async {
+    var _content = '';
+    if (typeOfNotification == 'follow') {
+      _content = '${guestUser.username} has just followed you';
+    }
+    _firebase
+        .collection('users')
+        .doc(ownerId)
+        .collection('notifications')
+        .doc()
+        .set({'id': '', 'type': '$typeOfNotification', 'from': '${guestUser.id}', 'content': '$_content', 'time': '${Timestamp.now()}'});
+  }
+
+  Future<void> deleteNotificationFromDB(String guestUserId, String ownerId, String typeOfNotification) async {
+    var _querySnapshot = await _firebase
+        .collection('users')
+        .doc(ownerId)
+        .collection('notifications')
+        .where('type', isEqualTo: 'follow')
+        .where('from', isEqualTo: '$guestUserId')
+        .get();
+    print('len:' + _querySnapshot.docs.length.toString());
+    print(guestUserId);
+    var _docId = _querySnapshot.docs.first.id;
+    await _firebase.collection('users').doc(ownerId).collection('notifications').doc(_docId).delete();
+  }
+
+  Future<List<String>> getNotification(String userId) async {
+    var _querySnapshot = await _firebase.collection('users').doc(userId).collection('notifications').get();
+    return _querySnapshot.docs.map((e) => e.data()['content'].toString()).toList();
   }
 
   Future onDidReceiveLocalNotification(int id, String title, String body, String payload) {

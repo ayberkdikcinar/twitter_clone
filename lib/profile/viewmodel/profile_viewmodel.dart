@@ -32,8 +32,8 @@ class ProfileViewModel with ChangeNotifier {
     return _analyticServices.increasePostCount(userId);
   }
 
-  Future<void> follow(String userId, String guestId) async {
-    await _analyticServices.increaseFollowerCount(userId, guestId);
+  Future<void> follow(String userId, UserModel authUser) async {
+    await _analyticServices.increaseFollowerCount(userId, authUser);
   }
 
   Future<void> decreasePostCount(String userId) async {
